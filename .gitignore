@@ -140,6 +140,8 @@ celerybeat.pid
 
 # RAG / Chroma (von Kandidaten hinzugefügt)
 chroma_db/
+chromadb-rag/
+.idea/
 .venv
 env/
 venv/
