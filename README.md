@@ -4,28 +4,7 @@ Das Programm beantwortet Fragen zu Dokumenten aus `data/`. Es zerlegt PDFs in Te
 
 ## Ablauf
 
-```mermaid
-flowchart TD
-    subgraph IDX["1. Dokumentenindexierung"]
-        A["Dokumente in data/"] --> B{"DOCX-Konvertierung aktiviert?"}
-        B -->|Ja| C["LibreOffice: DOCX zu PDF"]
-        C --> D["PDF-Extraktion mit pypdf"]
-        B -->|"Nein: PDFs"| D
-        D --> E["RecursiveCharacterTextSplitter<br/>800 Zeichen, 120 Overlap"]
-        E --> F["Chunks + Metadaten<br/>Datei, Seite, Chunk"]
-        F -->|upsert| G[("ChromaDB<br/>Persistente Vektordatenbank")]
-    end
-
-    subgraph QA["2. Retrieval & Antwortgenerierung"]
-        H["Benutzerfrage"] --> I["Semantische Suche<br/>Top 3 Chunks"]
-        I --> J["Kontextaufbereitung<br/>mit Quellenmarkierungen"]
-        J --> K["LLM via OpenRouter"]
-        K --> L["Antwort mit Quellenangaben"]
-        H -. Frage im Prompt .-> K
-    end
-
-    G -->|Collection Query| I
-```
+<img src="mermaid-diagram-2026-11-23-165740.svg" width="320" alt="RAG-Pipeline: Dokumentenindexierung, Retrieval und Antwortgenerierung">
 
 ## Einrichtung
 
